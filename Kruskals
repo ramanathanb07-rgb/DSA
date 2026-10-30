@@ -1,0 +1,104 @@
+#include <stdio.h>
+
+#define MAX 20
+
+int parent[MAX];
+
+struct Edge
+{
+    int u, v, weight;
+};
+
+int find(int i)
+{
+    while (parent[i] != i)
+        i = parent[i];
+
+    return i;
+}
+
+void unionSet(int u, int v)
+{
+    int a = find(u);
+    int b = find(v);
+
+    parent[a] = b;
+}
+
+int main()
+{
+    struct Edge edge[MAX], temp;
+    int n, e, i, j;
+    int count = 0, totalCost = 0;
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter number of edges: ");
+    scanf("%d", &e);
+
+    if (n < 1 || n > MAX || e < 0 || e > MAX)
+    {
+        printf("Invalid input\n");
+        return 1;
+    }
+
+    printf("Enter edges (u v weight):\n");
+
+    for (i = 0; i < e; i++)
+    {
+        scanf("%d %d %d",
+              &edge[i].u,
+              &edge[i].v,
+              &edge[i].weight);
+
+        if (edge[i].u < 0 || edge[i].u >= n ||
+            edge[i].v < 0 || edge[i].v >= n)
+        {
+            printf("Invalid vertex\n");
+            return 1;
+        }
+    }
+
+    /* Sort edges by weight */
+    for (i = 0; i < e - 1; i++)
+    {
+        for (j = 0; j < e - i - 1; j++)
+        {
+            if (edge[j].weight > edge[j + 1].weight)
+            {
+                temp = edge[j];
+                edge[j] = edge[j + 1];
+                edge[j + 1] = temp;
+            }
+        }
+    }
+
+    for (i = 0; i < n; i++)
+        parent[i] = i;
+
+    printf("Edges in Minimum Spanning Tree:\n");
+
+    for (i = 0; i < e && count < n - 1; i++)
+    {
+        int u = edge[i].u;
+        int v = edge[i].v;
+
+        if (find(u) != find(v))
+        {
+            printf("%d - %d : %d\n",
+                   u, v, edge[i].weight);
+
+            totalCost += edge[i].weight;
+            unionSet(u, v);
+            count++;
+        }
+    }
+
+    if (count != n - 1)
+        printf("Spanning tree does not exist\n");
+    else
+        printf("Minimum Cost = %d\n", totalCost);
+
+    return 0;
+}

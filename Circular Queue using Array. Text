@@ -1,0 +1,6 @@
+Enqueue: 10
+Enqueue: 20
+Enqueue: 30
+Queue elements:
+10 20 30
+Deleted element: 10

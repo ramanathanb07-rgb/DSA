@@ -1,9 +1,7 @@
 #include <stdio.h>
 #define MAX 100
-
 int list[MAX];
 int size = 0;
-
 void insert()
 {
     int pos, value, i;
@@ -34,7 +32,6 @@ void insert()
     list[pos - 1] = value;
     size++;
 }
-
 void delete()
 {
     int pos, i;
@@ -62,7 +59,6 @@ void delete()
     size--;
     printf("Element deleted successfully\n");
 }
-
 void display()
 {
     int i;
@@ -82,7 +78,6 @@ void display()
 
     printf("\n");
 }
-
 int main()
 {
     int choice;

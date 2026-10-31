@@ -1,0 +1,5 @@
+Enter number of nodes: 3
+Enter data: 10 20 30
+Circular Linked List:
+10 -> 20 -> 30
+Back to Head
